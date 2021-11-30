@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "dfCopyCustomers",
+				"name": "dfCopyCustomersNew",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "dfCopyCustomers",
+						"referenceName": "dfCopyCustomersNew",
 						"type": "DataFlowReference"
 					},
 					"compute": {
