@@ -1,5 +1,5 @@
 {
-	"name": "dfCopyCustomers",
+	"name": "dfCopyCustomersNew",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
