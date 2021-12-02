@@ -1,0 +1,42 @@
+{
+	"name": "dsDVLinkOrderDetails",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "IsDV",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Link_Order_Details_SID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Product_SID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Order_SID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "RecordSource",
+				"type": "varchar"
+			},
+			{
+				"name": "LoadDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Link_Order_Details"
+		}
+	}
+}
