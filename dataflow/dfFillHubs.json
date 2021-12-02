@@ -1,0 +1,38 @@
+{
+	"name": "dfFillHubs",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "dsNorthwindProducts",
+						"type": "DatasetReference"
+					},
+					"name": "NorthwindProducts"
+				},
+				{
+					"dataset": {
+						"referenceName": "dsNorthwindOrders",
+						"type": "DatasetReference"
+					},
+					"name": "NorthwindOrders"
+				},
+				{
+					"dataset": {
+						"referenceName": "dsNorthwindOrderDetails",
+						"type": "DatasetReference"
+					},
+					"name": "NorthwindOrderDetails"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "AbgeleiteteSpalte1"
+				}
+			],
+			"script": "parameters{\n\tRecordSource as string\n}\nsource(output(\n\t\tProductID as integer,\n\t\tProductName as string,\n\t\tSupplierID as integer,\n\t\tCategoryID as integer,\n\t\tQuantityPerUnit as string,\n\t\tUnitPrice as decimal(19,4),\n\t\tUnitsInStock as integer,\n\t\tUnitsOnOrder as integer,\n\t\tReorderLevel as integer,\n\t\tDiscontinued as boolean\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> NorthwindProducts\nsource(output(\n\t\tOrderID as integer,\n\t\tCustomerID as string,\n\t\tEmployeeID as integer,\n\t\tOrderDate as timestamp,\n\t\tRequiredDate as timestamp,\n\t\tShippedDate as timestamp,\n\t\tShipVia as integer,\n\t\tFreight as decimal(19,4),\n\t\tShipName as string,\n\t\tShipAddress as string,\n\t\tShipCity as string,\n\t\tShipRegion as string,\n\t\tShipPostalCode as string,\n\t\tShipCountry as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> NorthwindOrders\nsource(output(\n\t\tOrderID as integer,\n\t\tProductID as integer,\n\t\tUnitPrice as decimal(19,4),\n\t\tQuantity as integer,\n\t\tDiscount as float\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> NorthwindOrderDetails\nNorthwindProducts derive() ~> AbgeleiteteSpalte1"
+		}
+	}
+}
