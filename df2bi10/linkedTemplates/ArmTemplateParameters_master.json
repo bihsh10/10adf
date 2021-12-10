@@ -5,7 +5,13 @@
 		"factoryName": {
 			"value": "df2bi10"
 		},
+		"IsDV_connectionString": {
+			"value": ""
+		},
 		"lsBI10Northwind_connectionString": {
+			"value": ""
+		},
+		"lsNorthwind_connectionString": {
 			"value": ""
 		},
 		"containerUri": {

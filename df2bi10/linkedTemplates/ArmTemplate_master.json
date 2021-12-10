@@ -7,9 +7,17 @@
 			"metadata": "Data Factory-Name",
 			"defaultValue": "df2bi10"
 		},
+		"IsDV_connectionString": {
+			"type": "secureString",
+			"metadata": "Sichere Zeichenfolge für \"connectionString\" von \"IsDV\""
+		},
 		"lsBI10Northwind_connectionString": {
 			"type": "secureString",
 			"metadata": "Sichere Zeichenfolge für \"connectionString\" von \"lsBI10Northwind\""
+		},
+		"lsNorthwind_connectionString": {
+			"type": "secureString",
+			"metadata": "Sichere Zeichenfolge für \"connectionString\" von \"lsNorthwind\""
 		},
 		"containerUri": {
 			"type": "string",
@@ -38,8 +46,14 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"IsDV_connectionString": {
+						"value": "[parameters('IsDV_connectionString')]"
+					},
 					"lsBI10Northwind_connectionString": {
 						"value": "[parameters('lsBI10Northwind_connectionString')]"
+					},
+					"lsNorthwind_connectionString": {
+						"value": "[parameters('lsNorthwind_connectionString')]"
 					}
 				}
 			},
