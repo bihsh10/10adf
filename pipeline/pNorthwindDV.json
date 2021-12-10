@@ -15,6 +15,13 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"dataflow": {
+						"referenceName": "dfFillHubs",
+						"type": "DataFlowReference",
+						"parameters": {
+							"LoadDate": "currentUTC(\"Berlin\")"
+						}
+					},
 					"compute": {
 						"coreCount": 8,
 						"computeType": "General"
