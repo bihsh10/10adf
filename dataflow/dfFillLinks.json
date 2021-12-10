@@ -16,12 +16,12 @@
 						"referenceName": "dsDVHubOrders",
 						"type": "DatasetReference"
 					},
-					"name": "source1"
+					"name": "DVHubOrders"
 				}
 			],
 			"sinks": [],
 			"transformations": [],
-			"script": "source(output(\n\t\tOrderID as integer,\n\t\tProductID as integer,\n\t\tUnitPrice as decimal(19,4),\n\t\tQuantity as integer,\n\t\tDiscount as float\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> NorthwindOrderDetails\nsource(output(\n\t\tOrder_SID as integer,\n\t\tOrder_ID as integer,\n\t\tLoadDate as timestamp,\n\t\tRecordSource as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source1"
+			"script": "source(output(\n\t\tOrderID as integer,\n\t\tProductID as integer,\n\t\tUnitPrice as decimal(19,4),\n\t\tQuantity as integer,\n\t\tDiscount as float\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> NorthwindOrderDetails\nsource(output(\n\t\tOrder_SID as integer,\n\t\tOrder_ID as integer,\n\t\tLoadDate as timestamp,\n\t\tRecordSource as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DVHubOrders"
 		}
 	}
 }
