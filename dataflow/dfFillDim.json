@@ -1,0 +1,45 @@
+{
+	"name": "dfFillDim",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "dsDVHubProducts",
+						"type": "DatasetReference"
+					},
+					"name": "DVHubProducts"
+				},
+				{
+					"dataset": {
+						"referenceName": "dsDVSatProducts",
+						"type": "DatasetReference"
+					},
+					"name": "DVSatProducts"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dsStarDimProducts",
+						"type": "DatasetReference"
+					},
+					"name": "StarDimProducts"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Products"
+				},
+				{
+					"name": "SelectProducts"
+				},
+				{
+					"name": "RecordSourceTimeStamp"
+				}
+			],
+			"script": "source(output(\n\t\tProduct_SID as integer,\n\t\tProduct_ID as integer,\n\t\tLoadDate as timestamp,\n\t\tRecordSource as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DVHubProducts\nsource(output(\n\t\tProduct_SID as integer,\n\t\tProductName as string,\n\t\tLoadDate as timestamp,\n\t\tRecordSource as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DVSatProducts\nDVHubProducts, DVSatProducts join(DVHubProducts@Product_SID == DVSatProducts@Product_SID,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Products\nProducts select(mapColumn(\n\t\tProduct_SID = DVHubProducts@Product_SID,\n\t\tProduct_ID,\n\t\tProduct_SID = DVSatProducts@Product_SID,\n\t\tProductName\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectProducts\nSelectProducts derive(LoadDate = currentUTC(\"Berlin\"),\n\t\tRecordSource = 'NorthindDV') ~> RecordSourceTimeStamp\nRecordSourceTimeStamp sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tProduct_SID as integer,\n\t\tProduct_ID as integer,\n\t\tProductName as string,\n\t\tLoadDate as timestamp,\n\t\tRecordSource as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> StarDimProducts"
+		}
+	}
+}
